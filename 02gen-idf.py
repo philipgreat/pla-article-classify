@@ -1,11 +1,8 @@
 # encoding=utf-8
-import jieba
-import os
 import jieba  
 import jieba.analyse  
 import math  
-  
-
+import os
 ''''' 
 计算得到idf文件 
 求idf得步骤： 
@@ -14,27 +11,27 @@ import math
 2、对每个词计算idf：idf = log(n / docs(w, D)) 
 '''  
   
-def load_data(path):  
+def load_file_list(path):  
     ''''' 
     加载数据，解析json格式 
     :param path: 
     :return: 
     '''  
-    all_words=[]
+    all_files = []
 
     for (cur, dirs, files) in os.walk('data'):
         depth = len(cur.split('/'))
         #print "--" * depth, cur
         for fname in files:
-            if(fname.endswith(".kw")):
-                print cur+"/"+ fname
+            if(fname.endswith(".txt")):
+                #print cur+"/"+ fname
                 source_file_name = cur+"/"+ fname
                 with open(source_file_name) as f:
-                    content = f.readlines()
-                    all_words = all_words+content
+                    all_files.append(source_file_name)
 
-    return all_words
-    
+
+    return all_files
+  
 def seg(content, stopwords):  
     ''''' 
     分词并去除停用词 
@@ -61,15 +58,17 @@ def save(idf_dict, path):
         f.write(str(key) + " " + str(idf_dict[key]) + "\n")  
     f.close()  
   
-def compute_idf(tags_data, stopwords):  
+def compute_idf(file_list, stopwords):  
     # 所有分词后文档  
     D = []  
     #所有词的set  
     W = set()  
-    for i in range(len(tags_data)):  
+    for i in range(len(file_list)):  
         #新闻原始数据  
-        prevue = tags_data[i]
-        d = seg(prevue, stopwords)  
+        file_name = file_list[i]
+        file = open(file_name,"r") 
+        content = file.read()
+        d = seg(content, stopwords)  
         D.append(d)  
         W = W | d  
     #计算idf  
@@ -82,31 +81,16 @@ def compute_idf(tags_data, stopwords):
     return idf_dict  
   
   
- 
- 
-stopwords = {}.fromkeys([ line.rstrip() for line in open("extradict/stopwords") ]) 
 
-
-def gen_idf_for_one_dir(source_file_path,dest_file_path):
-
-    #sourcefile = open(source_file_path,"r") 
-    tags_data = load_data(source_file_path) 
-    idf_dict = compute_idf(tags_data, stopwords)  
-    save(idf_dict, dest_file_path)  
-
-gen_idf_for_one_dir("data","extractdic/idf.txt")
-
-#cut_one_file("data/army/1.txt","data/army/1.keyword")
-
-'''
-
-            for (cur, dirs, files) in os.walk('data'):
-    depth = len(cur.split('/'))
-    #print "--" * depth, cur
-    for fname in files:
-        if(fname.endswith(".kw")):
-            print cur+"/"+ fname
-            source_file_name = cur+"/"+ fname
-            dest_file_name = cur+"/"+ fname+".idf"
-            gen_idf_for_one_file(source_file_name,dest_file_name)
-'''
+jieba.load_userdict("extradict/pla-dict.txt")
+jieba.analyse.set_stop_words("extradict/stopwords")
+#jieba.analyse.set_idf_path("extradict/idf.txt");
+path = 'data'  
+file_list= load_file_list(path)  
+#获取停用词  
+stopwords = {}.fromkeys([ line.rstrip() for line in open("extradict/stopwords") ])  
+#得到idf的字典  
+idf_dict = compute_idf(file_list, stopwords)  
+#存储  
+path = "extradict/idf.txt"  
+save(idf_dict, path)  
