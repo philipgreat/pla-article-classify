@@ -41,7 +41,7 @@ def dict_from_file(file_path):
 
 def dict_from_content(file_path):
     dict = {}
-    sourcefile = open(target_file_path,"r") 
+    sourcefile = open(file_path,"r") 
     content = sourcefile.read()
     #seg_list = jieba.cut(content, cut_all=False)
     tags = jieba.analyse.extract_tags(content,  topK=200, withWeight=True)
@@ -62,13 +62,7 @@ for force in all_force:
     #print force
     all_force_dict[force] = dict_from_file("data/"+force+".tfidf")
 
-'''
-得到目标文章的向量
-'''
 
-target_file_path = "data/navitest.txt"
-
-target_map = dict_from_content(target_file_path)
 
 '''
 按照目标map的顺序构造数组，如果在相关分类中这个维度没有，则记为0
@@ -109,6 +103,36 @@ def find_min_key(dict):
 
 #v1 = all_force_dict["navy"]
 
+
+'''
+得到目标文章的向量
+'''
+
+def test_article(target_path,all_force_vector):
+    result_map={}
+    target_map = dict_from_content(target_path)
+    for key, value in all_force_vector.items():
+        result = cos_test(target_map,value)
+        result_map [key] = result
+    type_of_force = find_min_key(result_map)
+    print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
+    return type_of_force
+
+def test(target_path):
+    return test_article(target_path,all_force_dict)
+
+
+test("data/navitest.txt")
+test("data/armytest.txt")
+
+
+'''
+
+
+target_file_path = "data/navitest.txt"
+
+target_map = dict_from_content(target_file_path)
+
 result_map={}
 
 for force in all_force:
@@ -118,12 +142,9 @@ for force in all_force:
 
 type_of_force = find_min_key(result_map)
 
-print "the result is: "+type_of_force
+print "the min value shows the result is: "+type_of_force
 
 
-
-
-'''
 
 print_dict(all_force_dict["navy"])
 

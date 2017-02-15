@@ -19,3 +19,12 @@ http://blog.csdn.net/yan456jie/article/details/52078273
 
 第5步自己统计词频也可以，省事点可以先跑TFIDF, 取top 100或200，让后挑出类别关键词的那50个
 
+
+最终执行结果：
+
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.257 seconds.
+Prefix dict has been built succesfully.
+The min value shows the article 'data/navitest.txt' classify result is: navy
+The min value shows the article 'data/armytest.txt' classify result is: army
