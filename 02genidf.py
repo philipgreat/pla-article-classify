@@ -20,11 +20,21 @@ def load_data(path):
     :param path: 
     :return: 
     '''  
-    with open(path) as f:
-        content = f.readlines()
+    all_words=[]
 
-    return content  
-  
+    for (cur, dirs, files) in os.walk('data'):
+        depth = len(cur.split('/'))
+        #print "--" * depth, cur
+        for fname in files:
+            if(fname.endswith(".kw")):
+                print cur+"/"+ fname
+                source_file_name = cur+"/"+ fname
+                with open(source_file_name) as f:
+                    content = f.readlines()
+                    all_words = all_words+content
+
+    return all_words
+    
 def seg(content, stopwords):  
     ''''' 
     分词并去除停用词 
@@ -72,23 +82,25 @@ def compute_idf(tags_data, stopwords):
     return idf_dict  
   
   
-  
-path = 'data/army/1.txt.kw'  
-tags_data = load_data(path)  
+ 
  
 stopwords = {}.fromkeys([ line.rstrip() for line in open("extradict/stopwords") ]) 
 
 
-def gen_idf_for_one_file(source_file_path,dest_file_path):
+def gen_idf_for_one_dir(source_file_path,dest_file_path):
 
     #sourcefile = open(source_file_path,"r") 
     tags_data = load_data(source_file_path) 
     idf_dict = compute_idf(tags_data, stopwords)  
     save(idf_dict, dest_file_path)  
 
+gen_idf_for_one_dir("data","extractdic/idf.txt")
+
 #cut_one_file("data/army/1.txt","data/army/1.keyword")
 
-for (cur, dirs, files) in os.walk('data'):
+'''
+
+            for (cur, dirs, files) in os.walk('data'):
     depth = len(cur.split('/'))
     #print "--" * depth, cur
     for fname in files:
@@ -97,5 +109,4 @@ for (cur, dirs, files) in os.walk('data'):
             source_file_name = cur+"/"+ fname
             dest_file_name = cur+"/"+ fname+".idf"
             gen_idf_for_one_file(source_file_name,dest_file_name)
-
-            
+'''
