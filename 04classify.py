@@ -114,6 +114,7 @@ def test_article(target_path,all_force_vector):
     for key, value in all_force_vector.items():
         result = cos_test(target_map,value)
         result_map [key] = result
+        print "The angle for "+key+" is "+ str(result)
     type_of_force = find_min_key(result_map)
     print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
     return type_of_force

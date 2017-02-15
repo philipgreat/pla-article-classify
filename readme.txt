@@ -22,9 +22,14 @@ http://blog.csdn.net/yan456jie/article/details/52078273
 
 最终执行结果：
 
-Building prefix dict from the default dictionary ...
-Loading model from cache /tmp/jieba.cache
-Loading model cost 0.257 seconds.
-Prefix dict has been built succesfully.
+The angle for navy is 0.714161202833
+The angle for airforce is 0.781578682536
+The angle for rocket is 0.779786047846
+The angle for army is 0.780766596164
 The min value shows the article 'data/navitest.txt' classify result is: navy
+The angle for navy is 0.824570717524
+The angle for airforce is 0.834250482476
+The angle for rocket is 0.79891007397
+The angle for army is 0.744447443492
 The min value shows the article 'data/armytest.txt' classify result is: army
+
