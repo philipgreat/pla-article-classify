@@ -52,7 +52,9 @@ def dict_from_content(file_path):
 
 
 
-
+#jieba.load_userdict("extradict/pla-dict.txt")
+jieba.analyse.set_stop_words("extradict/stopwords")
+#jieba.analyse.set_idf_path("extradict/idf.txt");
 
 all_force=["army","navy","airforce","rocket"]
 all_force_dict={}
@@ -87,9 +89,28 @@ def cos_test(dict_target,dict_one_force):
             #print key+": "+str(value)+ str(dict_one_force[key])
         else:
             #print "s-----"
-            vector_target.append(0)
+            vector_target.append(0.0)
 
     return cos_dist(vector_target,vector_candidate)
+'''
+def cos_test2(dict_target,dict_one_force):
+    vector_target = []
+    vector_candidate = []
+    for key, value in dict_target.items():
+        #print "process key: "+key
+        vector_target.append(value)
+        #key_encoded = key.decode("utf8")
+        if  key in dict_one_force:
+            vector_candidate.append(dict_one_force[key])
+            #print "should get here"
+            #print key+": "+str(value)+ str(dict_one_force[key])
+        else:
+            #print "s-----"
+            vector_candidate.append(0)
+
+    return cos_dist(vector_target,vector_candidate)
+'''
+
 
 def find_max_key(dict):
     candidate_key=""
