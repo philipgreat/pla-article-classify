@@ -165,6 +165,8 @@ def test(target_path):
 
 test("data/navitest.txt")
 test("data/armytest.txt")
+test("data/airforcetest.txt")
+test("data/rockettest.txt")
 
 
 '''
