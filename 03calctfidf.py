@@ -12,7 +12,7 @@ def gen_tfidf_for_one_file(source_file_path,dest_file_path):
     sourcefile = open(source_file_path,"r") 
     content = sourcefile.read()
     #seg_list = jieba.cut(content, cut_all=False)
-    tags = jieba.analyse.extract_tags(content,  topK=200, withWeight=True)
+    tags = jieba.analyse.extract_tags(content,  topK=50, withWeight=True)
     destfile = open(dest_file_path,"w")
 
     
@@ -34,7 +34,7 @@ all_force=["army","navy","airforce","rocket"]
 
 for force in all_force:
     
-    gen_tfidf_for_one_file("data/"+force+"/"+force+".txt","data/"+force+"/"+force+".tfidf")  
+    gen_tfidf_for_one_file("data/"+force+"/"+force+".txt","data/"+force+".tfidf")  
     print force+"...done"
 
             
