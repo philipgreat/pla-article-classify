@@ -83,12 +83,13 @@ def cos_test(dict_target,dict_one_force):
         
         #key_encoded = key.decode("utf8")
 
-       
+        vector_candidate.append(value)
 
         if  key in dict_target:
             target_value = dict_target[key]
             vector_target.append(target_value)
-            vector_candidate.append(value)
+        else:
+            vector_target.append(0.0)
             #print "should get here"
         
             #print key+"\t"+str(value)+"\t" + str(target_value)
