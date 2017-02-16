@@ -54,7 +54,7 @@ def dict_from_content(file_path):
 
 jieba.load_userdict("extradict/pla-dict.txt")
 jieba.analyse.set_stop_words("extradict/stopwords")
-#jieba.analyse.set_idf_path("extradict/idf.txt");
+jieba.analyse.set_idf_path("extradict/idf.txt");
 
 all_force=["army","navy","airforce","rocket"]
 all_force_dict={}
@@ -93,7 +93,7 @@ def cos_test(dict_target,dict_one_force):
             vector_target.append(0.0)
             #print key+"\t"+str(value)+"\t" + str(target_value)
             #print "should get here"
-        print key+"\t"+str(value)+"\t" + str(target_value)
+        #print key+"\t"+str(value)+"\t" + str(target_value)
         
 
 
@@ -167,9 +167,10 @@ def test(target_path):
 
 
 test("data/navitest.txt")
-#test("data/armytest.txt")
-#test("data/airforcetest.txt")
-#test("data/rockettest.txt")
+test("data/armytest.txt")
+test("data/airforcetest.txt")
+test("data/rockettest.txt")
+test("data/rocket2test.txt")
 
 
 '''
