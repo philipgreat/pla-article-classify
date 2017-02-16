@@ -12,7 +12,7 @@ def gen_tfidf_for_one_file(source_file_path,dest_file_path):
     sourcefile = open(source_file_path,"r") 
     content = sourcefile.read()
     #seg_list = jieba.cut(content, cut_all=False)
-    tags = jieba.analyse.extract_tags(content,  topK=50, withWeight=True)
+    tags = jieba.analyse.extract_tags(content,  topK=20, withWeight=True)
     destfile = open(dest_file_path,"w")
 
     

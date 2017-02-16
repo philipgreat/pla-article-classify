@@ -84,15 +84,17 @@ def cos_test(dict_target,dict_one_force):
         #key_encoded = key.decode("utf8")
 
         vector_candidate.append(value)
-
+        target_value = 0.0
         if  key in dict_target:
             target_value = dict_target[key]
             vector_target.append(target_value)
+            
         else:
             vector_target.append(0.0)
-            #print "should get here"
-        
             #print key+"\t"+str(value)+"\t" + str(target_value)
+            #print "should get here"
+        print key+"\t"+str(value)+"\t" + str(target_value)
+        
 
 
     return cos_dist(vector_target,vector_candidate)
@@ -154,8 +156,8 @@ def test_article(target_path,all_force_vector):
     type_of_force = find_max_key(result_map)
     print "The max value shows the article '"+target_path+"' classify result is: "+type_of_force
 
-    type_of_force = find_min_key(result_map)
-    print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
+    #type_of_force = find_min_key(result_map)
+    #print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
 
 
     return type_of_force
@@ -165,9 +167,9 @@ def test(target_path):
 
 
 test("data/navitest.txt")
-test("data/armytest.txt")
-test("data/airforcetest.txt")
-test("data/rockettest.txt")
+#test("data/armytest.txt")
+#test("data/airforcetest.txt")
+#test("data/rockettest.txt")
 
 
 '''
