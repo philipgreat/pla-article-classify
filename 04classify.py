@@ -46,7 +46,8 @@ def dict_from_content(file_path):
     #seg_list = jieba.cut(content, cut_all=False)
     tags = jieba.analyse.extract_tags(content,  topK=200, withWeight=True)
     for tag in tags:
-        dict[tag[0]] = tag[1] #string and flat pair
+        key_encoded = tag[0].encode("utf-8")
+        dict[key_encoded] = tag[1] #string and flat pair
     return dict 
 
 
@@ -76,28 +77,26 @@ def print_dict(dict):
 def cos_test(dict_target,dict_one_force):
     vector_target = []
     vector_candidate = []
-    for key, value in dict_target.items():
-        
-        vector_target.append(value)
-        key_encoded = key.encode("utf8")
-        if  key_encoded in dict_one_force:
-            vector_candidate.append(dict_one_force[key_encoded])
+    for key, value in dict_one_force.items():
+        #print "process key: "+key
+        vector_candidate.append(value)
+        #key_encoded = key.decode("utf8")
+        if  key in dict_target:
+            vector_target.append(dict_target[key])
             #print "should get here"
-            #print key+": "+str(value)+ str(dict_one_force[key.encode("utf8")])
+            #print key+": "+str(value)+ str(dict_one_force[key])
         else:
             #print "s-----"
-            vector_candidate.append(1)
-
-
+            vector_target.append(0)
 
     return cos_dist(vector_target,vector_candidate)
 
-def find_min_key(dict):
+def find_max_key(dict):
     candidate_key=""
-    current_min_value = 1000000000.0 # for positive values only
+    current_max_value = 0.0 # for positive values only
     for key, value in dict.items():
-        if value < current_min_value :
-            current_min_value =   value  
+        if value > current_max_value :
+            current_max_value =   value  
             candidate_key = key
     return candidate_key
 
@@ -114,8 +113,8 @@ def test_article(target_path,all_force_vector):
     for key, value in all_force_vector.items():
         result = cos_test(target_map,value)
         result_map [key] = result
-        print "The angle for "+key+" is "+ str(result)
-    type_of_force = find_min_key(result_map)
+        print "The cosin value is "+ str(result)+" for "+key
+    type_of_force = find_max_key(result_map)
     print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
     return type_of_force
 
