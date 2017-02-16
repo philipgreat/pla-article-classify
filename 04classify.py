@@ -48,6 +48,7 @@ def dict_from_content(file_path):
     for tag in tags:
         key_encoded = tag[0].encode("utf-8")
         dict[key_encoded] = tag[1] #string and flat pair
+        #print key_encoded+": "+str(tag[1])
     return dict 
 
 
@@ -166,12 +167,14 @@ def test(target_path):
     return test_article(target_path,all_force_dict)
 
 
-test("data/navitest.txt")
-test("data/armytest.txt")
-test("data/army2test.txt")
-test("data/airforcetest.txt")
-test("data/rockettest.txt")
-test("data/rocket2test.txt")
+#test("data/navitest.txt")
+test("data/navi2test.txt")
+
+#test("data/armytest.txt")
+#test("data/army2test.txt")
+#test("data/airforcetest.txt")
+#test("data/rockettest.txt")
+#test("data/rocket2test.txt")
 
 
 '''
