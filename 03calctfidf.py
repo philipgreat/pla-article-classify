@@ -25,7 +25,9 @@ def gen_tfidf_for_one_file(source_file_path,dest_file_path):
 
 
 
-
+jieba.load_userdict("extradict/pla-dict.txt")
+jieba.analyse.set_stop_words("extradict/stopwords")
+jieba.analyse.set_idf_path("extradict/idf.txt")
 
 all_force=["army","navy","airforce","rocket"]
 

@@ -52,7 +52,7 @@ def dict_from_content(file_path):
 
 
 
-#jieba.load_userdict("extradict/pla-dict.txt")
+jieba.load_userdict("extradict/pla-dict.txt")
 jieba.analyse.set_stop_words("extradict/stopwords")
 #jieba.analyse.set_idf_path("extradict/idf.txt");
 
@@ -69,7 +69,6 @@ for force in all_force:
 
 '''
 按照目标map的顺序构造数组，如果在相关分类中这个维度没有，则记为0
-
 '''
 
 def print_dict(dict):
@@ -81,17 +80,23 @@ def cos_test(dict_target,dict_one_force):
     vector_candidate = []
     for key, value in dict_one_force.items():
         #print "process key: "+key
-        vector_candidate.append(value)
+        
         #key_encoded = key.decode("utf8")
+
+       
+
         if  key in dict_target:
-            vector_target.append(dict_target[key])
+            target_value = dict_target[key]
+            vector_target.append(target_value)
+            vector_candidate.append(value)
             #print "should get here"
-            #print key+": "+str(value)+ str(dict_one_force[key])
-        else:
-            #print "s-----"
-            vector_target.append(0.0)
+        
+            #print key+"\t"+str(value)+"\t" + str(target_value)
+
 
     return cos_dist(vector_target,vector_candidate)
+    #return cos_dist(vector_candidate,vector_target)
+    
 '''
 def cos_test2(dict_target,dict_one_force):
     vector_target = []
@@ -121,6 +126,16 @@ def find_max_key(dict):
             candidate_key = key
     return candidate_key
 
+
+def find_min_key(dict):
+    candidate_key=""
+    current_min_value = 100000000.0 # for positive values only
+    for key, value in dict.items():
+        if value < current_min_value :
+            current_min_value =   value  
+            candidate_key = key
+    return candidate_key
+
 #v1 = all_force_dict["navy"]
 
 
@@ -136,7 +151,12 @@ def test_article(target_path,all_force_vector):
         result_map [key] = result
         print "The cosin value is "+ str(result)+" for "+key
     type_of_force = find_max_key(result_map)
+    print "The max value shows the article '"+target_path+"' classify result is: "+type_of_force
+
+    type_of_force = find_min_key(result_map)
     print "The min value shows the article '"+target_path+"' classify result is: "+type_of_force
+
+
     return type_of_force
 
 def test(target_path):
