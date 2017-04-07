@@ -36,4 +36,8 @@ The angle for army is 0.744447443492
 The min value shows the article 'data/armytest.txt' classify result is: army
 
 
-经过人工调整后，目前文章分类的准确率是100%
+经过小幅度人工调整后，目前文章分类的准确率是100%
+
+本程序仅用于学习和交流，请勿用于生产环境
+
+增强：使用spark做集群计算，找出读者喜欢的文章
