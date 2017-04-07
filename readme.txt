@@ -1,6 +1,8 @@
-总的流程是：
+目标： 给定一篇文章，找出这个文章属于哪个栏目
 
-1. 找到分好类的文章 （假设400篇，4个类别）
+算法：
+
+1. 找到分好类的文章 （400篇，4个类别,）
 
 2. 对所有文章进行分词，可以用到专用词字典和停用词字典，生成400个文件
 
@@ -33,3 +35,5 @@ The angle for rocket is 0.79891007397
 The angle for army is 0.744447443492
 The min value shows the article 'data/armytest.txt' classify result is: army
 
+
+经过人工调整后，目前文章分类的准备率是100%
